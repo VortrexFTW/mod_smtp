@@ -16,8 +16,6 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#define SMTP_OPENSSL
-
 #ifndef SIZE_MAX
 /**
  * Maximum value of size_t type.

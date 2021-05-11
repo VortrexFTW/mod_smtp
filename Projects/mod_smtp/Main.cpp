@@ -36,7 +36,7 @@ void ModuleRegister()
 		}
 
 		struct smtp *smtp;
-		int rc;
+		enum smtp_status_code rc;
 		rc = smtp_open(szServer,
 						szPort,
 						pConnectionSecurity,
@@ -61,9 +61,11 @@ void ModuleRegister()
 		rc = smtp_mail(smtp,
 						szBody);
 		rc = smtp_close(smtp);
-		//if(rc != SMTP_STATUS_OK){
-		//	return pState->SetError("SMTP failed: %s", (const char*)smtp_status_code_errstr(rc));
-		//}
+
+		if(rc != SMTP_STATUS_OK){
+			return pState->SetError("SMTP failed: %s", (const char*)smtp_status_code_errstr(rc));
+			//fprintf(stderr, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
+		}
 
 		//SDK::NullValue Value();
 		//State.Return(Value);
